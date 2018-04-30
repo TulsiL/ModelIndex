@@ -1,30 +1,50 @@
 <template>
   <div class="main">
-   
-    <!-- <div style="color:red">{{counter}}</div> -->
-    <br/>
-    <div v-for="n in 4" :key="n.id">
-    <label style="color:pink">{{counter++}}</label>
-    </div>
+    <ul v-if="posts && posts.length">
+      <li v-for="post of posts">
+        <p>
+          <strong>{{post.title}}</strong>
+        </p>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {     
-        counter: 0      
-    }
-  },
-  watch:{
-    counter() {
-      console.log(this.counter);      
-      this.counter=0;
+  import axios from 'axios';
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        posts: [],
+        errors: []
+      }
+    },
+    methods: {
+      async getData() {
+        try {
+          const response = await axios.get(`http://jsonplaceholder.typicode.com/posts`)
+          this.posts = response.data
+        } catch (e) {
+          this.errors.push(e)
+        }
+      }
+    },
+    created() {
+      // axios.get(`http://jsonplaceholder.typicode.com/posts`)
+      //   .then(response => {
+      //     this.posts = response.data
+      //   })
+      //   .catch(error =>{
+      //     this.errors.push(error)
+      //   })
+      this.getData()
+
     }
   }
-}
+
 </script>
 <style scoped>
+
 
 </style>

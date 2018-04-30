@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// import '../js/jquery-2.1.1.min'
+// import '../js/turn.min'
 
 Vue.config.productionTip = false
 
