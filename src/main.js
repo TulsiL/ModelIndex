@@ -6,6 +6,10 @@ import router from './router'
 // import '../js/jquery-2.1.1.min'
 // import '../js/turn.min'
 
+import Vuetify from 'vuetify'
+ 
+Vue.use(Vuetify)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

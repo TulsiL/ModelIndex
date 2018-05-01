@@ -1,44 +1,51 @@
 <template>
-  <div class="main">
-    <ul v-if="posts && posts.length">
-      <li v-for="post of posts">
-        <p>
-          <strong>{{post.title}}</strong>
-        </p>
-      </li>
-    </ul>
+  <div>
+
+    <div id="todo-list-example" v-for="(todo, index) in todos" :key="todo.id">
+      <br/>
+      <input placeholder="Add a todo">
+      <demo></demo>
+      <br/>
+      
+      <button1 :index="index" @remove="remove(index)" @addNewTodo="addNewTodo(index)"></button1>
+
+
+    </div>
   </div>
 </template>
 
 <script>
-  import axios from 'axios';
+  import Demo from './Demo.vue'
+  import Button1 from './Button1.vue'
   export default {
     name: 'HelloWorld',
+    components: {
+      demo: Demo,
+      button1: Button1
+    },
     data() {
-      return {
-        posts: [],
-        errors: []
+      return { 
+        todos: [{
+          id: 0,
+          title: ''
+        }],
+        nextId:1
       }
     },
+
     methods: {
-      async getData() {
-        try {
-          const response = await axios.get(`http://jsonplaceholder.typicode.com/posts`)
-          this.posts = response.data
-        } catch (e) {
-          this.errors.push(e)
-        }
+      addNewTodo: function () {
+        this.todos.push({
+          id: this.nextId++,
+          title: ''
+        })
+      },
+      remove(index) {
+        this.todos.splice(index, 1)
       }
     },
+
     created() {
-      // axios.get(`http://jsonplaceholder.typicode.com/posts`)
-      //   .then(response => {
-      //     this.posts = response.data
-      //   })
-      //   .catch(error =>{
-      //     this.errors.push(error)
-      //   })
-      this.getData()
 
     }
   }
